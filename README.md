@@ -24,7 +24,7 @@ start in ON for a clock pulse and the number of data in on count port, simultane
 this adder works on the rising edge of the start pulse. so it doesn't matter how many pulses it is ON.
 * ### Programable Adder C
 It works the same as B part, but in falling edge instead.
-* ### test bench FILE and RANDOM
+* ### FILE and RANDOM test bench 
 for part A, we had to write two test bench. one of them generates the random numbers with **IEEE.math_real.all**\
 other one reads inputs from **input.txt** and writes on **output.txt**
 ## Block Ram
