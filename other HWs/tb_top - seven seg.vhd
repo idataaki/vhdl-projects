@@ -1,21 +1,19 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY tb_counter IS
-END tb_counter;
+ENTITY tb_top IS
+END tb_top;
  
-ARCHITECTURE behavior OF tb_counter IS 
+ARCHITECTURE behavior OF tb_top IS 
  
-    -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT Counter
+    COMPONENT Top
     PORT(
          ena : IN  std_logic;
          clk : IN  std_logic;
          rst : IN  std_logic;
          full_count : OUT  std_logic;
-         count1 : OUT  std_logic_vector(3 downto 0);
-         count2 : OUT  std_logic_vector(2 downto 0)
+         ssd1 : OUT  std_logic_vector(6 downto 0);
+         ssd2 : OUT  std_logic_vector(6 downto 0)
         );
     END COMPONENT;
     
@@ -27,22 +25,22 @@ ARCHITECTURE behavior OF tb_counter IS
 
  	--Outputs
    signal full_count : std_logic;
-   signal count1 : std_logic_vector(3 downto 0);
-   signal count2 : std_logic_vector(2 downto 0);
+   signal ssd1 : std_logic_vector(6 downto 0);
+   signal ssd2 : std_logic_vector(6 downto 0);
 
    -- Clock period definitions
-   constant clk_period : time := 1000 ns;
+   constant clk_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: Counter PORT MAP (
+   uut: Top PORT MAP (
           ena => ena,
           clk => clk,
           rst => rst,
           full_count => full_count,
-          count1 => count1,
-          count2 => count2
+          ssd1 => ssd1,
+          ssd2 => ssd2
         );
 
    -- Clock process definitions
@@ -59,14 +57,19 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
+      wait for 100 ns;
+			
 		ena <= '1';
-      wait for 8000 ns;
+		wait for 80 ns;
 		ena <= '0';
-		wait for 1000 ns;
+		wait for 40 ns;
 		ena <= '1';
-
-      --wait for clk_period*10;
-
+		rst <= '1';
+		wait for 40 ns;
+		ena <= '1';
+		rst <= '0';
+      wait for clk_period*10;
+		
       -- insert stimulus here 
 
       wait;
